@@ -1,11 +1,7 @@
 import React from 'react';
-import axios from 'axios'
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-console.log(axios.get('http://localhost:3001/persons'))
 
 ReactDOM.render(
   <React.StrictMode>
