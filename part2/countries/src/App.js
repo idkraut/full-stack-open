@@ -9,9 +9,8 @@ const Search = ({country, onChange}) => {
   )
 }
 
-const Country = ({country}) => {
+const Weather = ({city}) => {
   const api_key = process.env.REACT_APP_API_KEY
-  let city = country.capital
   const [weather, setWeather] = useState('')
 
   useEffect(() => {
@@ -20,6 +19,16 @@ const Country = ({country}) => {
     .then(json => setWeather({temp: json.main.temp, wind: json.wind.speed, icon: json.weather[0].icon}))
   }, [])
 
+  return (
+    <div>
+      <p><b>temperature: </b>{weather.temp}</p>
+      <img alt="icon" src={`http://openweathermap.org/img/w/${weather.icon}.png`} width="100px" height="100px"></img>
+      <p><b>wind: </b>{weather.wind}</p>
+    </div>
+  )
+}
+
+const Country = ({country}) => {
   return (
     <div>
       <h1>{country.name.common}</h1>
@@ -31,9 +40,7 @@ const Country = ({country}) => {
       </ul>
       <img alt='flag' src={country.flags.png} width="150px" height="150px"></img>
       <h2>Weather in {country.capital}</h2>
-      <p><b>temperature: </b>{weather.temp}</p>
-      <img alt="icon" src={`http://openweathermap.org/img/w/${weather.icon}.png`} width="100px" height="100px"></img>
-      <p><b>wind: </b>{weather.wind}</p>
+      <Weather city={country.capital}/>
     </div>
   )
 }
@@ -51,8 +58,6 @@ const CountryList = ({countries, onClick}) => {
 }
 
 const Countries = ({countries, onClick, weather}) => {
-  console.log(countries)
-  console.log(weather)
   if (!countries.length > 0) return <p></p>
 
   if (countries.length === 1) {
